@@ -12,8 +12,11 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-          <operario-bancario v-if="activeRole === 'bankOp'" />
-          <operario-logistico v-else />
+          <v-row>
+            <v-col cols="12">
+              <operario-bancario />
+            </v-col>
+          </v-row>
         </v-layout>
       </v-container>
     </v-content>
@@ -32,10 +35,9 @@
 <script>
 import { mapState } from 'vuex';
 import OperarioBancario from "./../components/OperarioBancario";
-import OperarioLogistico from "./../components/OperarioLogistico";
 
 export default {
-  components: { OperarioLogistico, OperarioBancario },
+  components: { OperarioBancario },
   computed: {
     ...mapState(['activeRole']),
     title() {
