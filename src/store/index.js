@@ -13,6 +13,11 @@ export default new Vuex.Store({
       state.activeRole = payload;
     },
   },
+  getters: {
+    authenticated(state) {
+      return state.activeRole;
+    }
+  },
   actions: {
   },
 });
