@@ -5,11 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    activeRole: localStorage.getItem('role') || null,
   },
   mutations: {
+    setRole(state, payload) {
+      localStorage.setItem('role', payload);
+      state.activeRole = payload;
+    },
   },
   actions: {
-  },
-  modules: {
   },
 });
