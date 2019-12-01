@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import efficientRouteApi from "./../services/efficientRoute";
-import directionsApi from "./../services/directions";
-import geocoding from "./../services/geocode";
+import api from "./../services/Api";
 import moment from 'moment';
 
 export default {
@@ -119,7 +117,8 @@ export default {
         icon:urlIcon
       })
     }
-
+    const { data } = await api.getRecoroutes();
+    console.log(data)
     this.boundMap();
   }
 };
