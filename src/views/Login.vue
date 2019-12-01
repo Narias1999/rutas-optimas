@@ -65,14 +65,7 @@ export default {
     ...mapMutations(['setRole']),
     login() {
       if (!this.$refs.form.validate()) return false;
-
-      if (this.username === 'bankOperario') {
-        this.setRole('bankOp');
-      } else if (this.username === 'assetOperator') {
-        this.setRole('assetOp');
-      } else {
-        return Swal.fire('Ops...', 'No eres un usuario autorizado.', 'error');
-      }
+      this.setRole('bankOp');
       return this.$router.replace('/main');
     },
   },
