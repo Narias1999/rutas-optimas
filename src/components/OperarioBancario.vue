@@ -46,8 +46,6 @@ export default {
       this.map.fitBounds(bounds);
     },
 
-
-
     newPoint({ lat, lng , name, icon}) {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
@@ -56,21 +54,25 @@ export default {
         icon:icon
       });
       this.markers.push(marker);
-          var contentString = '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">Scot</h1>'+
-          '<div id="bodyContent">'+
-          '<p><b>Scot</b>, tiene 58 billetes de 50,  is a large ' +
-          '(last visited June 22, 2009).</p>'+
-          '</div>'+
-          '</div>';
+      //console.log(billetes);
+      //const [billete50, billete20, billete10] = billetes.split(',')
+      var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">'+name+'</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Scot</b>, tiene 47 de 50.000, de 20.000 y 36 de 10.000' +
+      '</p>'+
+      '</div>'+
+      '</div>';
 
       var infowindow = new google.maps.InfoWindow({
         content: contentString
       });
       marker.addListener('click', function() {
-        infowindow.open(this.map, marker);
+        if (name.includes('Scot')){
+          infowindow.open(this.map, marker);
+        }
       });
     },
 
@@ -100,11 +102,11 @@ export default {
     
 
     const cajeros = [
-      '4.726902,-74.060702, Cajero 1',
-      '4.711963,-74.070462, Cajero 2',
-      '4.593649,-74.124090, Cajero 3',
-      '4.672264,-74.153474, Cajero 4',
-      '4.666364,-74.120242, Cajero 5'
+      '4.726902,-74.060702, Scot 1',
+      '4.711963,-74.070462, Scot 2',
+      '4.593649,-74.124090, Scot 3',
+      '4.672264,-74.153474, Scot 4',
+      '4.666364,-74.120242, Scot 5'
     ]
 
     const centrosEfectivo=[
@@ -112,6 +114,14 @@ export default {
       '4.754351,-74.046478, Portal Norte',
       '4.595608,-74.169169, Portal Sur',
       '4.627144,-74.106822, Puente Aranda'
+    ]
+
+    const billetes = [
+      '46,59,32',
+      '52,33,41',
+      '86,74,64',
+      '65,59,30',
+      '41,56,49'
     ]
 
     for (const cajero of cajeros) {
