@@ -10,6 +10,7 @@
 <script>
 import api from "./../services/Api";
 import moment from 'moment';
+import polylineUtil from "google-polyline";
 
 export default {
   computed: {
@@ -62,19 +63,16 @@ export default {
       }
     },
 
-    drawRoute(points) {
+    drawRoute(points, color) {
       this.polyline = new google.maps.Polyline({
         path: points,
         geodesic: true,
-        strokeColor: "#FF0000",
+        strokeColor: color,
         strokeOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 4,
         map: this.map
       });
     }
-  },
-  async created() {
-    
   },
   async mounted() {
     this.map = new google.maps.Map(this.$refs.operatorMap, {
@@ -118,7 +116,28 @@ export default {
       })
     }
     const { data } = await api.getRecoroutes();
-    console.log(data)
+
+    data.forEach(({points, distance}, index) => {
+      let color;
+      console.log(index)
+      switch(index) {
+        case 0:
+          color = 'black';
+          break
+        case 1:
+          color = 'blue';
+          break
+        case 2:
+          color = 'red';
+          break
+        default:
+          color = 'yellow';
+          break
+      }
+      console.log(color, distance.text);
+      const pointsResult = polylineUtil.decode(points).map(([lat, lng]) => ({ lat, lng }));
+      this.drawRoute(pointsResult, color);
+    })
     this.boundMap();
   }
 };
