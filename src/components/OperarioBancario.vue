@@ -15,7 +15,7 @@ import polylineUtil from "google-polyline";
 export default {
   computed: {
     displayedHour() {
-      return moment(this.optimalTime).calendar();
+      return moment(this.optimalTime).add(9, 'hours').calendar();
     }
   },
   data() {
@@ -25,7 +25,7 @@ export default {
       ruta: null,
       markers: [],
       polyline: null,
-      optimalTime: new Date()
+      optimalTime: new Date() + 12000
     };
   },
   methods: {
@@ -118,23 +118,22 @@ export default {
     const { data } = await api.getRecoroutes();
 
     data.forEach(({points, distance}, index) => {
-      let color;
-      console.log(index)
-      switch(index) {
-        case 0:
-          color = 'black';
-          break
-        case 1:
-          color = 'blue';
-          break
-        case 2:
-          color = 'red';
-          break
-        default:
-          color = 'yellow';
-          break
-      }
-      console.log(color, distance.text);
+      let color = '#3333FF';
+      // console.log(index)
+      // switch(index) {
+      //   case 0:
+      //     color = 'black';
+      //     break
+      //   case 1:
+      //     color = 'blue';
+      //     break
+      //   case 2:
+      //     color = 'red';
+      //     break
+      //   default:
+      //     color = 'yellow';
+      //     break
+      // }
       const pointsResult = polylineUtil.decode(points).map(([lat, lng]) => ({ lat, lng }));
       this.drawRoute(pointsResult, color);
     })
