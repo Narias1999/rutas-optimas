@@ -46,6 +46,8 @@ export default {
       this.map.fitBounds(bounds);
     },
 
+
+
     newPoint({ lat, lng , name, icon}) {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
@@ -54,6 +56,22 @@ export default {
         icon:icon
       });
       this.markers.push(marker);
+          var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">Scot</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>Scot</b>, tiene 58 billetes de 50,  is a large ' +
+          '(last visited June 22, 2009).</p>'+
+          '</div>'+
+          '</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      marker.addListener('click', function() {
+        infowindow.open(this.map, marker);
+      });
     },
 
     removeCurrentRoute() {
@@ -119,25 +137,26 @@ export default {
 
     data.forEach(({points, distance}, index) => {
       let color;
-      console.log(index)
+      //console.log(index)
       switch(index) {
         case 0:
-          color = 'black';
+          color = 'blue';
           break
         case 1:
           color = 'blue';
           break
         case 2:
-          color = 'red';
+          color = 'blue';
           break
         default:
-          color = 'yellow';
+          color = 'blue';
           break
       }
-      console.log(color, distance.text);
+     // console.log(color, distance.text);
       const pointsResult = polylineUtil.decode(points).map(([lat, lng]) => ({ lat, lng }));
       this.drawRoute(pointsResult, color);
     })
+
     this.boundMap();
   }
 };
