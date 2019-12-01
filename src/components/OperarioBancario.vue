@@ -47,12 +47,13 @@ export default {
       this.map.fitBounds(bounds);
     },
 
-    newPoint({ lat, lng }) {
+    newPoint({ lat, lng , name, icon}) {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
-        map: this.map
+        map: this.map,
+        label:name,
+        icon:icon
       });
-
       this.markers.push(marker);
     },
 
@@ -85,19 +86,37 @@ export default {
     
 
     const cajeros = [
-      '4.726902,-74.060702',
-      '4.711963,-74.070462',
-      '4.593649,-74.124090',
-      '4.672264,-74.153474',
-      '4.666364,-74.120242'
+      '4.726902,-74.060702, Cajero 1',
+      '4.711963,-74.070462, Cajero 2',
+      '4.593649,-74.124090, Cajero 3',
+      '4.672264,-74.153474, Cajero 4',
+      '4.666364,-74.120242, Cajero 5'
     ]
 
+    const centrosEfectivo=[
+      '4.709867,-74.111879, Portal 80',
+      '4.754351,-74.046478, Portal Norte',
+      '4.595608,-74.169169, Portal Sur',
+      '4.627144,-74.106822, Puente Aranda'
+    ]
 
     for (const cajero of cajeros) {
-      const [lat, lng] = cajero.split(',')
+      const [lat, lng, name] = cajero.split(',')
       this.newPoint({
         lat: Number(lat),
-        lng: Number(lng)
+        lng: Number(lng),
+        name: String (name)
+      })
+    }
+
+    for (const centro of centrosEfectivo) {
+      const [lat, lng, name] = centro.split(',')
+      const urlIcon = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+      this.newPoint({
+        lat: Number(lat),
+        lng: Number(lng),
+        name: String (name), 
+        icon:urlIcon
       })
     }
 
